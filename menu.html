@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Easy 2 Eat - المطاعم</title>
+<link rel="shortcut icon" href="image.png" type="image/x-icon" />
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@500;700&display=swap');
+
+body {
+  font-family: 'Cairo', sans-serif;
+  margin: 0;
+  background: url('https://media.istockphoto.com/id/1428412216/photo/a-male-chef-pouring-sauce-on-meal.jpg?s=612x612&w=0&k=20&c=8U3mrgWsuB7pB8axtGj89MXRkHDKodEli9F6wKgPT4A=') no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+}
+
+/* زر العودة وزر قوائم المطاعم */
+.top-buttons{
+  position: fixed;
+  top: 15px;
+  left: 20px;
+  display: flex;
+  gap: 10px;
+  z-index: 2000;
+}
+
+.top-buttons a{
+  background: rgba(0,0,0,0.6);
+  padding: 8px 14px;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 18px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.top-buttons a:hover{
+  color: #FF6F00;
+  text-shadow: 0 0 10px #FF6F00;
+  transform: scale(1.1);
+}
+
+/* الشريط العلوي */
+.header {
+  position: relative;
+  overflow: hidden;
+  background: rgba(0,0,0,0.6);
+  border-bottom: 3px solid #FF6F00;
+  padding: 60px 0 25px 0;
+  text-align: center;
+}
+
+.marquee-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.marquee {
+  display: inline-block;
+  white-space: nowrap;
+  color: #FF6F00; 
+  font-weight: bold;
+  font-size: 22px;
+  animation: moveText 14s linear infinite;
+  position: relative;
+  z-index: 1;
+}
+.marquee:hover { animation-play-state: paused; }
+
+@keyframes moveText {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* الشعار المركزي */
+.header-center {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 40px;
+  font-weight: 800;
+  color: #FF6F00;
+  text-shadow: 0 0 20px #FF6F00, 0 0 40px #FF6F00, 0 0 60px #FF6F00;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 2;
+}
+.header-center img {
+  width: 45px;
+  height: 45px;
+  filter: drop-shadow(0 0 10px #FF6F00);
+}
+
+/* المطاعم */
+.restaurants {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+  padding: 40px 60px;
+}
+
+.restaurant {
+  background: rgba(0,0,0,0.7);
+  border-radius: 14px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+}
+
+.restaurant:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(255,111,0,0.5);
+}
+
+.restaurant h3 {
+  color: #FF6F00;
+  margin-bottom: 8px;
+  font-size: 22px;
+}
+.restaurant p { color: #ccc; font-size: 15px; }
+
+.menu-btn {
+  margin-top: 15px;
+  background: #FF6F00;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.menu-btn:hover { background: #e65c00; transform: scale(1.05); }
+
+/* الأطباق */
+.dishes {
+  margin-top: 15px;
+  display: none;
+}
+.dish {
+  background: rgba(0,0,0,0.6);
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dish span { color: #FF6F00; font-weight: bold; }
+.dish button {
+  background: #FF6F00;
+  border: none;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.dish button:hover { background: #e65c00; transform: scale(1.1); }
+
+/* السلة */
+.cart {
+  display: none;
+  width: 250px;
+  background: rgba(0,0,0,0.8);
+  border-radius: 14px 14px 0 0;
+  padding: 12px;
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1000;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.7);
+}
+.cart h4 {
+  text-align: center;
+  color: #FF6F00;
+  margin-bottom: 8px;
+}
+.cart #cartList span { display: block; margin-bottom: 5px; color: #FF6F00; }
+.cart p { margin-top: 10px; font-weight: bold; color: #FF6F00; }
+.btns { margin-top: 10px; display: flex; justify-content: space-between; }
+.btn-clear, .btn-confirm {
+  background: #FF6F00;
+  border: none;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 13px;
+}
+.btn-clear:hover, .btn-confirm:hover { background: #e65c00; }
+
+.cart-item-btns button {
+  background: #FF6F00;
+  border: none;
+  color: #fff;
+  padding: 2px 6px;
+  margin-left: 3px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.cart-item-btns button:hover { background: #e65c00; }
+
+/* أسفل الصفحة */
+.footer {
+  text-align:center; 
+  padding:20px; 
+  color:#FF6F00;
+  font-weight: 600;
+  background: rgba(0,0,0,0.6);
+  border-top:2px solid #FF6F00;
+}
+
+/* استجابة الموبايل */
+@media (max-width:768px){
+  .restaurants { grid-template-columns: 1fr; padding: 20px; }
+  .top-buttons{ flex-direction: column; gap: 5px; left: 10px; }
+}
+</style>
+</head>
+<body>
+
+<!-- أزرار العودة + قوائم المطاعم -->
+<div class="top-buttons">
+  <a href="principale.html">🏠 العودة للصفحة الرئيسية</a>
+  <a href="imagemu.html">🍽️ قوائم المطاعم</a>
+</div>
+
+<div class="header">
+  <div class="header-center">
+    <img src="https://cdn-icons-png.flaticon.com/512/1046/1046784.png" alt="fork">
+    Easy 2 Eat
+    <img src="https://cdn-icons-png.flaticon.com/512/1046/1046786.png" alt="knife">
+  </div>
+  <div class="marquee-wrapper">
+    <div class="marquee">مرحباً بكم أعزائنا الكرام في موقع Easy 2 Eat</div>
+  </div>
+</div>
+
+<div class="restaurants">
+  <div class="restaurant">
+    <h3>مطعم جهينة</h3>
+    <p>أفضل الأكلات الشرقية</p>
+    <button class="menu-btn" onclick="toggleDishes(event,this)">قائمة الطعام</button>
+    <div class="dishes">
+      <div class="dish"><span>مقلوب</span> <span>25 د.ت</span> <button onclick="addToCart(event,'مقلوب','جهينة',25)">+</button></div>
+      <div class="dish"><span>بيتزا</span> <span>30 د.ت</span> <button onclick="addToCart(event,'بيتزا','جهينة',30)">+</button></div>
+    </div>
+  </div>
+  <div class="restaurant">
+    <h3>مطعم تشاو تشاو</h3>
+    <p>ألذ المكرونات والبيتزا</p>
+    <button class="menu-btn" onclick="toggleDishes(event,this)">قائمة الطعام</button>
+    <div class="dishes">
+      <div class="dish"><span>مقلوب</span> <span>18 د.ت</span> <button onclick="addToCart(event,'مقلوب','تشاو تشاو',18)">+</button></div>
+      <div class="dish"><span>بيتزا</span> <span>22 د.ت</span> <button onclick="addToCart(event,'بيتزا','تشاو تشاو',22)">+</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="cart" id="cart">
+  <h4>🛒 سلة الطلبات</h4>
+  <div id="cartList"><span style="color:#888">السلة فارغة</span></div>
+  <p>المجموع: <strong id="total">0 د</strong></p>
+  <div class="btns">
+    <button class="btn-clear" onclick="clearCart()">محو</button>
+    <button class="btn-confirm" onclick="confirmOrder()">موافقة</button>
+  </div>
+</div>
+
+<div class="footer">
+  © 2025 Easy 2 Eat - جميع الحقوق محفوظة
+</div>
+
+<script>
+let cart=[];
+
+function toggleDishes(e,btn){
+  e.stopPropagation();
+  const dishes = btn.nextElementSibling;
+  dishes.style.display = dishes.style.display==='block'?'none':'block';
+}
+
+function addToCart(e,name,restaurant,price){
+  e.stopPropagation();
+  const key = name + restaurant;
+  const item = cart.find(i=>i.key===key);
+  if(item) item.qty++;
+  else cart.push({key,name,restaurant,price,qty:1});
+  updateCart();
+  document.getElementById('cart').style.display = 'block';
+}
+
+function updateCart(){
+  const cartList=document.getElementById('cartList');
+  const totalElem=document.getElementById('total');
+  cartList.innerHTML='';
+  if(cart.length===0){
+    cartList.innerHTML='<span style="color:#888">السلة فارغة</span>';
+  } else {
+    cart.forEach((item,i)=>{
+      cartList.innerHTML+=`
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+        <span>${item.name} (${item.restaurant}) - ${item.price} د.ت × ${item.qty}</span>
+        <div class="cart-item-btns">
+          <button onclick="changeQty(${i},1)">+</button>
+          <button onclick="changeQty(${i},-1)">-</button>
+        </div>
+      </div>`;
+    });
+  }
+  const total=cart.reduce((sum,item)=>sum+item.price*item.qty,0);
+  totalElem.textContent=total+' د';
+}
+
+function changeQty(index,delta){
+  cart[index].qty+=delta;
+  if(cart[index].qty<=0) cart.splice(index,1);
+  updateCart();
+  if(cart.length===0){
+    document.getElementById('cart').style.display='none';
+  }
+}
+
+function clearCart(){
+  cart=[];
+  updateCart();
+  document.getElementById('cart').style.display='none';
+}
+
+function confirmOrder(){
+  if(cart.length === 0){
+    alert("السلة فارغة!");
+    return;
+  }
+
+  localStorage.setItem('cartData', JSON.stringify(
+    cart.map(item => ({
+      item: item.name,
+      restaurant: item.restaurant,
+      price: item.price,
+      qty: item.qty
+    }))
+  ));
+
+  const total = cart.reduce((sum,item)=>sum + item.price * item.qty, 0);
+  localStorage.setItem('cartTotal', total + ' د');
+
+  window.location.href = "page3.html";
+}
+
+// زر قوائم المطاعم
+function scrollToRestaurants(){
+  document.querySelector('.restaurants').scrollIntoView({
+    behavior: 'smooth'
+  });
+}
+</script>
+</body>
+</html>

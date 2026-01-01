@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>اتصل بنا - Easy 2 Eat</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@500;700&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Cairo', sans-serif;
+  background: url('3398.png') no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+}
+
+header {
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 60px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.logo { font-size: 26px; font-weight: bold; color: #ffb400; }
+nav a { text-decoration: none; color: #fff; margin-left: 25px; font-size: 18px; transition: 0.3s; }
+nav a:hover { color: #ffb400; }
+
+.contact-container {
+  background: rgba(0,0,0,0.75);
+  margin: 80px auto;
+  padding: 50px;
+  border-radius: 25px;
+  width: 70%;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+  text-align: center;
+  animation: fadeIn 1s ease;
+}
+
+.contact-container h1 { color: #ffb400; font-size: 40px; margin-bottom: 20px; }
+.contact-container p { color: #ddd; font-size: 18px; margin-bottom: 40px; }
+
+form { display: flex; flex-direction: column; gap: 20px; align-items: center; }
+.input-group { position: relative; width: 80%; }
+.input-group i { position: absolute; top: 50%; left: 15px; transform: translateY(-50%); color: #ffb400; font-size: 20px; }
+input, textarea { width: 100%; padding: 14px 45px 14px 14px; border: none; border-radius: 10px; font-size: 16px; transition: 0.3s; }
+input:focus, textarea:focus { outline: 2px solid #ffb400; box-shadow: 0 0 10px #ffb400; }
+
+.warning {
+  position: absolute;
+  right: 105%;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #ffcc00;
+  color: #000;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  white-space: nowrap;
+  display: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  animation: pop 0.3s ease;
+}
+
+@keyframes pop {
+  0% { transform: translateY(-50%) scale(0); opacity:0; }
+  100% { transform: translateY(-50%) scale(1); opacity:1; }
+}
+
+button { background-color: #ffb400; color: #000; border: none; padding: 14px 40px; border-radius: 30px; cursor: pointer; font-size: 18px; font-weight: bold; transition: 0.3s; }
+button:hover { background-color: #e0a600; transform: scale(1.08); }
+
+.contact-info { margin-top: 30px; color: #ccc; font-size: 16px; }
+.contact-info a { color: #ffb400; text-decoration: none; font-weight: bold; }
+
+.preview-container, .thank-message { display:none; margin-top: 30px; padding:20px; border-radius:15px; text-align:center; }
+.preview-container { background: rgba(255,255,255,0.1); text-align:left; }
+.preview-container h3 { color:#ffb400; margin-bottom:10px; }
+.preview-container p { color:#fff; white-space: pre-line; }
+
+.thank-message {
+  background: linear-gradient(135deg, #ffcc66, #ffb347);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+  overflow: hidden;
+}
+
+.thank-message h2 { color: #fff; font-size: 28px; margin-bottom: 15px; text-shadow: 2px 2px 5px rgba(0,0,0,0.3); }
+.thank-message p { color: #fff; font-size: 18px; margin-bottom: 20px; }
+.thank-message button {
+  background-color: #fff; color: #ff8c00; font-weight: bold; padding: 12px 25px; border-radius: 25px; cursor: pointer; font-size: 16px;
+}
+.thank-message button:hover { transform: scale(1.05); }
+
+.confetti span { position: absolute; font-size: 20px; animation: fall 2s linear infinite; opacity: 0; }
+.confetti span:nth-child(1) { left: 10%; animation-delay: 0s; }
+.confetti span:nth-child(2) { left: 30%; animation-delay: 0.3s; }
+.confetti span:nth-child(3) { left: 50%; animation-delay: 0.6s; }
+.confetti span:nth-child(4) { left: 70%; animation-delay: 0.9s; }
+.confetti span:nth-child(5) { left: 90%; animation-delay: 1.2s; }
+
+@keyframes fall {
+  0% { top: -20px; opacity:0; transform: rotate(0deg); }
+  10% { opacity: 1; }
+  100% { top: 150px; opacity: 0; transform: rotate(360deg); }
+}
+
+footer { text-align: center; padding: 20px; background: rgba(0,0,0,0.8); position: fixed; bottom: 0; width: 100%; font-size: 14px; }
+
+@keyframes fadeIn { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+
+@media (max-width: 768px) { .contact-container { width: 90%; padding:30px; } .contact-container h1 { font-size:32px; } }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<header>
+  <div class="logo">🍴 Easy 2 Eat</div>
+  <nav>
+    <a href="principale.html">الصفحة الرئيسية</a>
+    <a href="menu.html">قائمة المطاعم</a>
+  </nav>
+</header>
+
+<div class="contact-container">
+  <h1>اتصل بنا</h1>
+  <p>هل لديك سؤال أو تواجه مشكلة؟ نحن هنا لمساعدتك 💬</p>
+  
+  <form id="contactForm">
+    <div class="input-group">
+      <i class="fa fa-user"></i>
+      <input type="text" id="name" placeholder="الاسم الكامل" required>
+      <span class="warning" id="warnName">الاسم مطلوب!</span>
+    </div>
+    <div class="input-group">
+      <i class="fa fa-envelope"></i>
+      <input type="email" id="email" placeholder="البريد الإلكتروني" required>
+      <span class="warning" id="warnEmail">البريد الإلكتروني مطلوب!</span>
+    </div>
+    <div class="input-group">
+      <i class="fa fa-comment"></i>
+      <textarea id="message" rows="5" placeholder="اكتب رسالتك هنا..." required></textarea>
+      <span class="warning" id="warnMessage">الرسالة مطلوبة!</span>
+    </div>
+    <button type="button" onclick="previewMessage()"><i class="fa fa-eye"></i> معاينة الرسالة</button>
+  </form>
+
+  <div class="preview-container" id="previewContainer">
+    <h3>معاينة الرسالة:</h3>
+    <p id="previewText"></p>
+    <button onclick="sendGmail()"><i class="fa fa-paper-plane"></i> إرسال عبر Gmail</button>
+    <button onclick="editMessage()"><i class="fa fa-edit"></i> تعديل الرسالة</button>
+  </div>
+
+  <div class="thank-message" id="thankMessage">
+  <div class="confetti">
+    <span>🎉</span><span>🍔</span><span>🍕</span><span>🥤</span><span>🎊</span>
+    <span>🍟</span><span>🍩</span><span>🍦</span>
+  </div>
+  <h2>✅ شكراً لتواصلك معنا!</h2>
+  <p>تم إنشاء رسالة البريد الجاهزة في Gmail، يمكنك مراجعتها وإرسالها.</p>
+  <button onclick="window.location.href='principale.html'">العودة إلى الصفحة الرئيسية</button>
+</div>
+
+<style>
+.thank-message {
+  display:none;
+  margin-top:30px;
+  background: linear-gradient(145deg, #111, #222);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+  border-radius:25px;
+  padding:40px 30px;
+  position:relative;
+  overflow:hidden;
+  text-align:center;
+  animation: fadeIn 0.8s ease forwards;
+  color: #fff;
+}
+
+.thank-message h2 {
+  font-size:36px;
+  color:#FFD700; /* ذهبي */
+  text-shadow: 2px 2px 10px rgba(0,0,0,0.6);
+  margin-bottom:20px;
+}
+
+.thank-message p {
+  color:#ccc;
+  font-size:20px;
+  margin-bottom:30px;
+  font-weight:500;
+}
+
+.thank-message button {
+  background: #FFD700;
+  color: #111;
+  font-weight:bold;
+  padding:16px 32px;
+  border-radius:35px;
+  cursor:pointer;
+  font-size:18px;
+  transition:0.3s;
+  box-shadow:0 5px 15px rgba(0,0,0,0.5);
+}
+
+.thank-message button:hover {
+  transform: scale(1.1) rotate(-2deg);
+  background-color:#FFC107;
+}
+
+.confetti span {
+  position:absolute;
+  font-size:28px;
+  animation: fall 2.5s linear infinite;
+  opacity:0;
+  color: #FFD700;
+}
+
+.confetti span:nth-child(2),
+.confetti span:nth-child(5),
+.confetti span:nth-child(8) { color: #C0C0C0; } /* فضي */
+
+.confetti span:nth-child(1){ left:5%; animation-delay:0s; }
+.confetti span:nth-child(2){ left:20%; animation-delay:0.2s; }
+.confetti span:nth-child(3){ left:35%; animation-delay:0.4s; }
+.confetti span:nth-child(4){ left:50%; animation-delay:0.6s; }
+.confetti span:nth-child(5){ left:65%; animation-delay:0.8s; }
+.confetti span:nth-child(6){ left:80%; animation-delay:1s; }
+.confetti span:nth-child(7){ left:15%; animation-delay:1.2s; }
+.confetti span:nth-child(8){ left:90%; animation-delay:1.4s; }
+
+@keyframes fall {
+  0% { top:-30px; opacity:0; transform:rotate(0deg) scale(0.8);}
+  10% { opacity:1; }
+  100% { top:200px; opacity:0; transform:rotate(360deg) scale(1.2);}
+}
+</style>
+
+
+  <div class="contact-info">
+    📧 <a href="mailto:name.exe.912@gmail.com?subject=استفسار%20حول%20Easy%202%20Eat">name.exe.912@gmail.com</a><br>
+    📞 <a href="tel:+21612345678">+216 12 345 678</a>
+  </div>
+</div>
+
+<footer>© 2025 جميع الحقوق محفوظة - Easy 2 Eat</footer>
+
+<script>
+function previewMessage(){
+  let name = document.getElementById('name').value.trim();
+  let email = document.getElementById('email').value.trim();
+  let message = document.getElementById('message').value.trim();
+  let valid = true;
+
+  // إخفاء جميع التحذيرات أولاً
+  document.getElementById('warnName').style.display = 'none';
+  document.getElementById('warnEmail').style.display = 'none';
+  document.getElementById('warnMessage').style.display = 'none';
+
+  if(!name){ document.getElementById('warnName').style.display='block'; valid=false; }
+  if(!email){ document.getElementById('warnEmail').style.display='block'; valid=false; }
+  if(!message){ document.getElementById('warnMessage').style.display='block'; valid=false; }
+
+  if(!valid) return;
+
+  let preview = `الاسم: ${name}\nالبريد: ${email}\nالرسالة:\n${message}`;
+  document.getElementById('previewText').textContent = preview;
+  document.getElementById('contactForm').style.display = 'none';
+  document.getElementById('previewContainer').style.display = 'block';
+}
+
+function editMessage(){
+  document.getElementById('contactForm').style.display = 'flex';
+  document.getElementById('previewContainer').style.display = 'none';
+}
+
+function sendGmail(){
+  let name = document.getElementById('name').value.trim();
+  let email = document.getElementById('email').value.trim();
+  let message = document.getElementById('message').value.trim();
+
+  let subject = encodeURIComponent("رسالة جديدة من Easy 2 Eat");
+  let body = encodeURIComponent(`الاسم: ${name}\nالبريد: ${email}\nالرسالة:\n${message}`);
+  window.location.href = `mailto:name.exe.912@gmail.com?subject=${subject}&body=${body}`;
+
+  document.getElementById('previewContainer').style.display = 'none';
+  document.getElementById('thankMessage').style.display = 'block';
+}
+</script>
+
+</body>
+</html>

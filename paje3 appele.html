@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تأكيد الطلب - Easy 2 Eat</title>
+    <link rel="shortcut icon" href="image.png" type="image/x-icon" />
+
+<style>
+  body {margin:0; font-family:'Cairo', sans-serif; background:url('https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?auto=compress&cs=tinysrgb&w=1600') no-repeat center center fixed; background-size:cover; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative; color:#fff; overflow-x:hidden;}
+  body::before {content:""; position:absolute; inset:0; background:linear-gradient(135deg, rgba(0,0,0,0.6), rgba(247,127,0,0.5)); z-index:0;}
+  header {z-index:2; font-size:32px; font-weight:bold; color:#fff; text-shadow:0 3px 6px rgba(0,0,0,0.5); margin-top:30px; animation:fadeInDown 1s ease;}
+  main {z-index:2; background:rgba(255,255,255,0.15); backdrop-filter:blur(10px); padding:25px 30px; border-radius:20px; width:90%; max-width:700px; text-align:center; box-shadow:0 10px 40px rgba(0,0,0,0.3); animation:fadeInUp 1.5s ease;}
+  h1 {color:#ffe9c0; font-size:26px; margin-bottom:10px;}
+  p {font-size:16px; color:#fff; margin-bottom:15px;}
+  #orderDetails {text-align:right; color:#fff; margin-bottom:20px;}
+  .contact {display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.2); border-radius:12px; padding:14px 18px; margin:10px 0; transition:all 0.3s ease; box-shadow:0 6px 15px rgba(0,0,0,0.3);}
+  .contact:hover {background:rgba(255,255,255,0.35); transform:translateY(-5px);}
+  .contact-name {font-size:18px; font-weight:bold; color:#fff;}
+  .contact-phone {font-size:14px; color:#ffe9c0; direction:ltr;}
+  .call-btn {background:linear-gradient(45deg, #2a9d8f, #21867a); border:none; padding:10px 14px; border-radius:10px; color:white; font-weight:bold; cursor:pointer; text-decoration:none; transition:0.3s;}
+  .call-btn:hover {background:linear-gradient(45deg, #20c997, #188c78); transform:scale(1.05);}
+  .back-btn {display:inline-block; margin-top:20px; padding:12px 20px; background:linear-gradient(45deg, #f77f00, #ffb703); color:white; border-radius:10px; text-decoration:none; font-weight:bold; box-shadow:0 5px 20px rgba(0,0,0,0.3); transition:0.3s;}
+  .back-btn:hover {transform:translateY(-3px); background:linear-gradient(45deg, #ffa733, #ffcb70);}
+  @keyframes fadeInUp {from{opacity:0; transform:translateY(40px);} to{opacity:1; transform:translateY(0);}}
+  @keyframes fadeInDown {from{opacity:0; transform:translateY(-40px);} to{opacity:1; transform:translateY(0);}}
+</style>
+</head>
+<body>
+<header>🍔 Easy 2 Eat</header>
+<main>
+<h1>✅ تم تأكيد الطلب بنجاح!</h1>
+<p>شكراً لاختيارك <b>Easy 2 Eat</b>، إليك تفاصيل طلبك:</p>
+<div id="orderDetails"></div>
+
+<div class="contact">
+  <div><div class="contact-name">أحمد بن سالم</div><div class="contact-phone">+216 20 000 001</div></div>
+  <a class="call-btn" href="tel:+21620000001">📞 اتصال</a>
+</div>
+<div class="contact">
+  <div><div class="contact-name">سارة المنصوري</div><div class="contact-phone">+216 20 000 002</div></div>
+  <a class="call-btn" href="tel:+21620000002">📞 اتصال</a>
+</div>
+<div class="contact">
+  <div><div class="contact-name">خالد الورفلي</div><div class="contact-phone">+216 20 000 003</div></div>
+  <a class="call-btn" href="tel:+21620000003">📞 اتصال</a>
+</div>
+<div class="contact">
+  <div><div class="contact-name">مروان الطرابلسي</div><div class="contact-phone">+216 20 000 004</div></div>
+  <a class="call-btn" href="tel:+21620000004">📞 اتصال</a>
+</div>
+
+<a href="principale.html" class="back-btn">⬅️ العودة للصفحة الرئيسية</a>
+</main>
+
+<script>
+const orderDetails = document.getElementById('orderDetails');
+const cartData = JSON.parse(localStorage.getItem('cartData') || '[]');
+const cartTotal = localStorage.getItem('cartTotal') || '0 د';
+
+if(cartData.length === 0){
+  orderDetails.innerHTML = '<p>لم يتم العثور على طلبات.</p>';
+} else {
+  let html = '<ul style="list-style:none; padding:0;">';
+  cartData.forEach(item => { html += `<li style="margin-bottom:5px;">${item.item} × ${item.qty} = ${item.price * item.qty} د</li>`; });
+  html += `</ul><p><strong>المجموع: ${cartTotal}</strong></p>`;
+  orderDetails.innerHTML = html;
+}
+</script>
+</body>
+</html>

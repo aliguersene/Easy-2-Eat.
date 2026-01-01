@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Easy 2 Eat - معرض المطاعم</title>
+<style>
+body {
+  font-family: 'Cairo', sans-serif;
+  margin: 0;
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+              url('3398.png') no-repeat center center fixed;
+  background-size: cover;
+  color: #f5f5dc;
+}
+
+.header {
+  background: rgba(26,26,26,0.9);
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px solid #d4af37;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header .logo { font-size: 30px; font-weight: 800; color: #d4af37; }
+.header .nav a { color: #f5f5dc; text-decoration: none; margin-left: 25px; font-weight: bold; transition:0.3s;}
+.header .nav a:hover { color:#d4af37; }
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
+  gap: 35px;
+  padding: 50px;
+}
+
+/* بطاقة كل مطعم مستطيلة مع صورتين */
+.card {
+  background: rgba(26,26,26,0.85);
+  border-radius: 20px;
+  overflow: hidden;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.4s, box-shadow 0.4s;
+  box-shadow: 0 5px 20px rgba(212,175,55,0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.card:hover { transform: translateY(-10px) scale(1.05); box-shadow:0 15px 35px rgba(212,175,55,0.6); }
+
+.card .images {
+  display: flex;
+  gap: 5px;
+  width: 100%;
+  padding: 5px;
+}
+.card .images img {
+  width: 50%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: transform 0.3s;
+}
+.card .images img:hover { transform: scale(1.05); }
+
+.card h2 {
+  color: #d4af37;
+  font-size: 26px;
+  margin: 15px 0 10px 0;
+}
+
+.card .view-btn {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #f5f5dc;
+  font-weight: bold;
+  text-decoration: underline;
+  font-size: 16px;
+  transition: 0.3s;
+}
+.card .view-btn:hover { color: #ffd700; transform: scale(1.05); }
+
+/* نافذة الصور الكبيرة */
+.modal {
+  display: none;
+  position: fixed;
+  top:0; left:0;
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,0.95);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  gap: 30px;
+  flex-wrap: wrap;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.modal.show { display:flex; opacity:1; }
+.modal img {
+  max-width: 45%;
+  max-height: 90%;
+  border-radius: 15px;
+  object-fit: cover;
+  box-shadow: 0 8px 20px rgba(212,175,55,0.7);
+  transition: transform 0.4s;
+}
+.modal img:hover { transform: scale(1.05); }
+
+.footer { text-align:center; padding:25px; color:#d4af37; font-weight:600; background: rgba(26,26,26,0.85); border-top:2px solid #d4af37; }
+
+@media(max-width:768px){
+  .modal img { max-width: 90%; height: auto; }
+  .gallery { padding:20px; gap:25px; }
+  .card .images { flex-direction: column; }
+  .card .images img { width: 100%; height:200px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">Easy 2 Eat</div>
+  <div class="nav">
+    <a href="principale.html">الرئيسية</a>
+    <a href="contact.html">تواصل</a>
+  </div>
+</div>
+
+<div class="gallery">
+  <!-- بطاقة مطعم 1 -->
+  <div class="card">
+    <div class="images">
+      <img src="https://example.com/thumb_makloub.jpg" alt="مطعم جهينة">
+      <img src="https://example.com/thumb_pizza.jpg" alt="مطعم جهينة">
+    </div>
+    <h2>مطعم جهينة</h2>
+    <div class="view-btn" onclick="showModal('img1')">انقر لمشاهدة</div>
+  </div>
+
+  <!-- بطاقة مطعم 2 -->
+  <div class="card">
+    <div class="images">
+      <img src="https://example.com/thumb_pasta.jpg" alt="مطعم تشاو تشاو">
+      <img src="https://example.com/thumb_friedrice.jpg" alt="مطعم تشاو تشاو">
+    </div>
+    <h2>مطعم تشاو تشاو</h2>
+    <div class="view-btn" onclick="showModal('img2')">انقر لمشاهدة</div>
+  </div>
+
+  <!-- بطاقة مطعم 3 -->
+  <div class="card">
+    <div class="images">
+      <img src="1.jpg" alt="مطعم برجر ستار">
+      <img src="https://example.com/thumb_fries.jpg" alt="مطعم برجر ستار">
+    </div>
+    <h2>مطعم برجر ستار</h2>
+    <div class="view-btn" onclick="showModal('img3')">انقر لمشاهدة</div>
+  </div>
+</div>
+
+<!-- نوافذ الصور الكبيرة -->
+<div id="img1" class="modal" onclick="hideModal('img1')">
+  <img src="https://example.com/makloub.jpg" alt="مقلوب جهينة">
+  <img src="https://example.com/pizza.jpg" alt="بيتزا جهينة">
+</div>
+<div id="img2" class="modal" onclick="hideModal('img2')">
+  <img src="https://example.com/pasta.jpg" alt="مكرونة تشاو تشاو">
+  <img src="https://example.com/friedrice.jpg" alt="أرز مقلي تشاو تشاو">
+</div>
+<div id="img3" class="modal" onclick="hideModal('img3')">
+  <img src="1.jpg" alt="برجر برجر ستار">
+  <img src="2.jpg" alt="بطاطس برجر ستار">
+</div>
+
+<div class="footer">
+  © 2025 Easy 2 Eat - جميع الحقوق محفوظة
+</div>
+
+<script>
+function showModal(id){
+  document.getElementById(id).classList.add('show');
+}
+function hideModal(id){
+  document.getElementById(id).classList.remove('show');
+}
+</script>
+
+</body>
+</html>
